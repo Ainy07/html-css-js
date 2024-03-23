@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #result {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <h1>Age Calculator</h1>
+  <form id="ageForm">
+    <label for="dob">Date of Birth:</label>
+    <input type="number" id="dobDay" placeholder="Day" min="1" max="31" required>
+    <input type="number" id="dobMonth" placeholder="Month" min="1" max="12" required>
+    <input type="number" id="dobYear" placeholder="Year" min="1900" max="2024" required>
+    <button type="submit">Calculate Age</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("ageForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var dobDay = document.getElementById("dobDay").value;
+      var dobMonth = document.getElementById("dobMonth").value;
+      var dobYear = document.getElementById("dobYear").value;
+
+      var today = new Date();
+      var birthDate = new Date(dobYear, dobMonth - 1, dobDay);
+
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      document.getElementById("result").innerText = "You are " + age + " years old.";
+    });
+  </script>
+</body>
+</html>
